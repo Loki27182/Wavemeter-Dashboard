@@ -141,3 +141,4 @@ dmypy.json
 *.csv
 *.png
 *.emf
+test_data/
