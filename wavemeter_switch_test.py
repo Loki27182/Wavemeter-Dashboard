@@ -19,8 +19,6 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 class WavemeterControl:
-    # another git test
-    #testing git
     def __init__(self):
         logging.basicConfig(filename='switch_test_log.log', filemode='a',format='%(asctime)s - %(levelname)s %(name)s %(message)s')
         self.logger = logging.getLogger(__name__)
