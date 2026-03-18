@@ -46,6 +46,9 @@ class WavemeterWS7:
         self._pattern_wait_event_registered = False
         api.dll.Operation(const.cCtrlStartMeasurement)
 
+        api.dll.SetPattern(const.cSignal1Interferometers,const.cPatternEnable)
+        api.dll.SetPattern(const.cSignal1WideInterferometer,const.cPatternEnable)
+
     def get_frequency(self):
         frequency = api.dll.GetFrequency(0.0)
         if frequency == const.ErrWlmMissing:

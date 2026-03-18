@@ -17,10 +17,12 @@ if __name__ == "__main__":
     QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
     app = QApplication([])
 
-    config_path = solve_filepath("config.json")
+    # Making compatible with main directory in a protected folder (program files) by saving config in local appdata
+    # Doesn't currently handle situations where an existing config file doesn't exist, and needs to be copied the first time
+    config_path = solve_filepath(os.getenv("LOCALAPPDATA") + "\\Wavemeter\\config.json")
 
     if os.path.exists(config_path):
-        config.config.load_config(solve_filepath("config.json"))
+        config.config.load_config(solve_filepath(config_path))
     else:
         QMessageBox.critical(QMainWindow(), "Error",
                              f"Failed to load configuration file from "
@@ -52,4 +54,5 @@ if __name__ == "__main__":
 
     window.switch_to_dashboard()
 
-    sys.exit(app.exec_())
+    ret = app.exec_()
+    sys.exit(ret)

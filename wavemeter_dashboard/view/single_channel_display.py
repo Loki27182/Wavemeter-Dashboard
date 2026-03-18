@@ -90,7 +90,7 @@ class SingleChannelDisplay(QWidget):
             channel.monitor_enabled = self._original_monitor_status[channel.channel_num]
 
     def update_frequency(self):
-        self.ui.bigFreqLabel.frequency = self.channel.frequency
+        self.ui.bigFreqLabel.frequency = self.channel.frequency# + self.channel.error + self.channel.pid_i
 
     def add_graph(self, graph_type: GraphableDataKind):
         if graph_type == GraphableDataKind.NONE:

@@ -1,3 +1,4 @@
+import os
 from PyQt5.QtWidgets import QMainWindow, QScrollArea
 
 from wavemeter_dashboard.config import config
@@ -6,11 +7,20 @@ from wavemeter_dashboard.controller.monitor import Monitor
 from wavemeter_dashboard.model.channel_model import ChannelModel
 from wavemeter_dashboard.view.dashboard import Dashboard
 from wavemeter_dashboard.view.single_channel_display import SingleChannelDisplay
+from wavemeter_dashboard.util import windows_set_appid, WindowsInhibitor
 
 
 class MainWindow(QMainWindow):
     def __init__(self, monitor: Monitor, alert_tracker: AlertTracker):
         QMainWindow.__init__(self)
+
+        if os.name == 'nt':  # If the os is windows
+            # set appid to avoid stacking in the task bar.
+            myappid = u'srlab.wavemeter_dashboard'
+            windows_set_appid(myappid)
+
+            # prevent windows from sleeping
+            WindowsInhibitor.inhibit()
 
         self.monitor = monitor
         self.alert_tracker = alert_tracker
@@ -59,3 +69,7 @@ class MainWindow(QMainWindow):
         else:
             super().show()
             self.resize(1400, 700)
+
+    def closeEvent(self, event):
+        if os.name == 'nt':
+            WindowsInhibitor.uninhibit()

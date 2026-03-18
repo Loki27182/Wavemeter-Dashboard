@@ -7,7 +7,7 @@ class DACOutOfBoundException(Exception):
 
 class DAC:
     DAC_MIN = 0
-    DAC_MAX = 64000
+    DAC_MAX = 32769
 
     def __init__(self, com_port, channel_num=16):
         self.channel_num = channel_num
@@ -37,7 +37,7 @@ class DAC:
         self.write(f"S {ch} {val}")
 
     def reset_dac(self, ch):
-        self.write(f"S {ch} 32000")
+        self.write(f"S {ch} {int(self.DAC_MAX/2)}")
 
     def set_dac_inc(self, ch, inc):
         self.write(f"D {ch} {inc}")

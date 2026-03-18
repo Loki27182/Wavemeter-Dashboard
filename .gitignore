@@ -136,3 +136,8 @@ dmypy.json
 
 # Virtual studio code
 .vscode/
+
+# Data files
+*.csv
+*.png
+*.emf
